@@ -1,0 +1,24 @@
+# =============================
+# Node / 前端构建
+# =============================
+
+node_modules/
+dist/
+build/
+*.local
+
+# Vite
+.vite/
+
+# Webpack
+.webpack/
+
+# Babel
+.cache/
+
+# Env 文件（如果你不想忽略可以删除）
+.env.local
+.env.*.local
+
+# VSCode
+.vscode/

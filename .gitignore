@@ -1,0 +1,25 @@
+# =============================
+# OS / 编辑器 / 通用
+# =============================
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
+*.swp
+*.swo
+*.bak
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# Global Node (给将来可能的工具使用)
+node_modules/
+
+# Java 全局
+*.class
+
+# 系统
+ehthumbs.db
+Desktop.ini

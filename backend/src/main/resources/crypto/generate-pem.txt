@@ -1,0 +1,32 @@
+# 方式1
+
+# 1. 生成 PKCS#8 格式的 RSA 私钥
+#    - genpkey：生成私钥的新命令（推荐）
+#    - algorithm RSA：生成 RSA 密钥
+#    - pkeyopt rsa_keygen_bits:2048：指定密钥长度 2048 位
+#    输出文件 rsa_private_pkcs8.pem（格式为：BEGIN PRIVATE KEY，PKCS#8）
+openssl genpkey -algorithm RSA -pkeyopt rsa_keygen_bits:2048 -out rsa_private_pkcs8.pem
+
+# 2. 从 PKCS#8 私钥中导出公钥
+#    - pkey：处理 PKCS#8 私钥的工具
+#    -pubout：输出公钥
+#    输出文件 rsa_public.pem（格式为：BEGIN PUBLIC KEY）
+openssl pkey -in rsa_private_pkcs8.pem -pubout -out rsa_public.pem
+
+
+# 方式2
+
+# 1. 生成 RSA 私钥（PKCS#1 格式：BEGIN RSA PRIVATE KEY）
+#    生成 2048 位私钥，输出到 rsa_private.pem
+openssl genrsa -out rsa_private.pem 2048
+
+# 2. 根据 PKCS#1 私钥导出公钥
+#    从 rsa_private.pem 中提取公钥，输出到 rsa_public.pem
+openssl rsa -in rsa_private.pem -pubout -out rsa_public.pem
+
+# 3. 将 PKCS#1 私钥转换为 PKCS#8 格式
+#    -topk8：输出为 PKCS#8
+#    -nocrypt：不加密码（明文私钥）
+#    输出文件为 rsa_private_pkcs8.pem（BEGIN PRIVATE KEY）
+openssl pkcs8 -topk8 -inform PEM -in rsa_private.pem -out rsa_private_pkcs8.pem -nocrypt
+
