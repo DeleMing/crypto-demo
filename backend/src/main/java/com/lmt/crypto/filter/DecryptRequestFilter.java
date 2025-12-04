@@ -134,46 +134,46 @@ public class DecryptRequestFilter extends OncePerRequestFilter {
             System.out.println("[DecryptFilter] [2] Base64解码后的加密密钥字节长度: " + encryptedKeyBytes.length + " 字节");
             System.out.println("[DecryptFilter] [2] 加密密钥前10字节(Hex): " + bytesToHex(encryptedKeyBytes, 10));
 
-            // 验证密钥对是否匹配：尝试用公钥加密一个测试数据，然后用私钥解密
-            System.out.println("[DecryptFilter] [3] 开始密钥对自验证...");
-            try {
-                byte[] testData = "test".getBytes(StandardCharsets.UTF_8);
-                System.out.println("[DecryptFilter] [3.1] 测试数据: " + new String(testData, StandardCharsets.UTF_8));
-                byte[] testEncrypted = RsaUtil.encrypt(rsaKeyPair.getPublic(), testData);
-                System.out.println("[DecryptFilter] [3.2] 测试数据加密后长度: " + testEncrypted.length + " 字节");
-                byte[] testDecrypted = RsaUtil.decrypt(rsaKeyPair, testEncrypted);
-                System.out.println("[DecryptFilter] [3.3] 测试数据解密后: " + new String(testDecrypted, StandardCharsets.UTF_8));
-                if (java.util.Arrays.equals(testData, testDecrypted)) {
-                    System.out.println("[DecryptFilter] [3.4] ✓ 密钥对自验证成功！");
-                } else {
-                    System.err.println("[DecryptFilter] [3.4] ✗ 警告：密钥对自验证失败！");
-                }
-            } catch (Exception e) {
-                System.err.println("[DecryptFilter] [3.4] ✗ 密钥对自验证异常: " + e.getMessage());
-                e.printStackTrace();
-            }
-
-            System.out.println("[DecryptFilter] [4] 开始RSA解密接收到的AES密钥...");
-
-            // 尝试用当前密钥对的公钥加密相同的数据，看看是否能匹配
-            try {
-                // 获取当前密钥对的公钥Base64
-                String currentPublicKeyBase64 = RsaUtil.publicKeyToBase64(rsaKeyPair);
-                System.out.println("[DecryptFilter] [4.1] 当前后端公钥Base64前50字符: " +
-                        currentPublicKeyBase64.substring(0, Math.min(50, currentPublicKeyBase64.length())) + "...");
-
-                // 尝试用当前公钥加密一个测试数据，然后解密
-                byte[] testEncrypt = RsaUtil.encrypt(rsaKeyPair.getPublic(), "test123".getBytes(StandardCharsets.UTF_8));
-                byte[] testDecrypt = RsaUtil.decrypt(rsaKeyPair, testEncrypt);
-                System.out.println("[DecryptFilter] [4.2] 当前密钥对加密/解密测试: " +
-                        new String(testDecrypt, StandardCharsets.UTF_8));
-
-                // 尝试解密前端传来的数据
-                System.out.println("[DecryptFilter] [4.3] 尝试解密前端传来的加密AES密钥...");
-            } catch (Exception e) {
-                System.err.println("[DecryptFilter] [4.1] 密钥对测试异常: " + e.getMessage());
-                e.printStackTrace();
-            }
+//            // 验证密钥对是否匹配：尝试用公钥加密一个测试数据，然后用私钥解密
+//            System.out.println("[DecryptFilter] [3] 开始密钥对自验证...");
+//            try {
+//                byte[] testData = "test".getBytes(StandardCharsets.UTF_8);
+//                System.out.println("[DecryptFilter] [3.1] 测试数据: " + new String(testData, StandardCharsets.UTF_8));
+//                byte[] testEncrypted = RsaUtil.encrypt(rsaKeyPair.getPublic(), testData);
+//                System.out.println("[DecryptFilter] [3.2] 测试数据加密后长度: " + testEncrypted.length + " 字节");
+//                byte[] testDecrypted = RsaUtil.decrypt(rsaKeyPair, testEncrypted);
+//                System.out.println("[DecryptFilter] [3.3] 测试数据解密后: " + new String(testDecrypted, StandardCharsets.UTF_8));
+//                if (java.util.Arrays.equals(testData, testDecrypted)) {
+//                    System.out.println("[DecryptFilter] [3.4] ✓ 密钥对自验证成功！");
+//                } else {
+//                    System.err.println("[DecryptFilter] [3.4] ✗ 警告：密钥对自验证失败！");
+//                }
+//            } catch (Exception e) {
+//                System.err.println("[DecryptFilter] [3.4] ✗ 密钥对自验证异常: " + e.getMessage());
+//                e.printStackTrace();
+//            }
+//
+//            System.out.println("[DecryptFilter] [4] 开始RSA解密接收到的AES密钥...");
+//
+//            // 尝试用当前密钥对的公钥加密相同的数据，看看是否能匹配
+//            try {
+//                // 获取当前密钥对的公钥Base64
+//                String currentPublicKeyBase64 = RsaUtil.publicKeyToBase64(rsaKeyPair);
+//                System.out.println("[DecryptFilter] [4.1] 当前后端公钥Base64前50字符: " +
+//                        currentPublicKeyBase64.substring(0, Math.min(50, currentPublicKeyBase64.length())) + "...");
+//
+//                // 尝试用当前公钥加密一个测试数据，然后解密
+//                byte[] testEncrypt = RsaUtil.encrypt(rsaKeyPair.getPublic(), "test123".getBytes(StandardCharsets.UTF_8));
+//                byte[] testDecrypt = RsaUtil.decrypt(rsaKeyPair, testEncrypt);
+//                System.out.println("[DecryptFilter] [4.2] 当前密钥对加密/解密测试: " +
+//                        new String(testDecrypt, StandardCharsets.UTF_8));
+//
+//                // 尝试解密前端传来的数据
+//                System.out.println("[DecryptFilter] [4.3] 尝试解密前端传来的加密AES密钥...");
+//            } catch (Exception e) {
+//                System.err.println("[DecryptFilter] [4.1] 密钥对测试异常: " + e.getMessage());
+//                e.printStackTrace();
+//            }
 
             byte[] decryptedBytes = RsaUtil.decrypt(rsaKeyPair, encryptedKeyBytes);
             System.out.println("[DecryptFilter] [4] ✓ RSA解密成功！");
