@@ -1,4 +1,4 @@
-//package com.intsig.crypto.config;
+//package com.lmt.crypto.config;
 //
 //import lombok.Data;
 //import org.springframework.boot.context.properties.ConfigurationProperties;

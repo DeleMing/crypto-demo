@@ -1,4 +1,4 @@
-package com.intsig.crypto.util;
+package com.lmt.crypto.util;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package com.intsig.crypto.config;
+package com.lmt.crypto.config;
 
 import lombok.Getter;
 import org.springframework.context.annotation.Bean;

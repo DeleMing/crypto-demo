@@ -1,4 +1,4 @@
-package com.intsig.crypto.other;
+package com.lmt.crypto.other;
 
 import com.alibaba.fastjson.parser.Feature;
 import com.alibaba.fastjson.serializer.SerializeConfig;

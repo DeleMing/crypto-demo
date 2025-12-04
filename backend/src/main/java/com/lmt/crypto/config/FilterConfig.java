@@ -1,6 +1,6 @@
-package com.intsig.crypto.config;
+package com.lmt.crypto.config;
 
-import com.intsig.crypto.filter.DecryptRequestFilter;
+import com.lmt.crypto.filter.DecryptRequestFilter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;

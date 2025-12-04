@@ -1,4 +1,4 @@
-package com.intsig.crypto.util;
+package com.lmt.crypto.util;
 
 import javax.crypto.Cipher;
 import java.nio.charset.StandardCharsets;
